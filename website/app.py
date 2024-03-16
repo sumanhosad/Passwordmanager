@@ -5,8 +5,10 @@ def create_app():
     app.config['SECRET_KEY'] = 'passwordmanager'   
        
 
+    @app.route('/login')
+    def login():
+        return render_template('login.html')
     @app.route('/')
     def home():
-        return render_template('login.html')
-
+        return render_template('homepage.html')
     return app
