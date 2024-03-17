@@ -1,0 +1,23 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Particle Animation */
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Ensure particles are behind other content */
+    background-color: #caf0f8;
+}
+

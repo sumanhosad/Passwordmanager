@@ -5,26 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css') }}">
-
+    <link rel="stylesheet" href="{{url_for('static',filename='css/particle.css')}}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form class="login-form" action="login.php" method="POST">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Login</button>
-            </div>
-        </form>
+    <!-- Particle Animation Container -->
+    <div id="particles-js"></div>
+
+    <!-- Login Form -->
+    <div class="main">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form class="login-form" action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <!-- Particle Animation Script -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+   <script src="{{url_for('static',filename='javascript/particle.js')}}"></script>
 </body>
 </html>
+
