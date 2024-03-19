@@ -10,6 +10,11 @@ import sys
 from rich.console import Console
 
 
+app=create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 
 def generatedevicedecret(length=10):
@@ -54,9 +59,4 @@ def config():
 
 config()
 
-
-app=create_app()
-
-if __name__ == "__main__":
-    app.run(debug=True)
 

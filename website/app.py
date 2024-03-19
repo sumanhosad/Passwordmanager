@@ -11,13 +11,16 @@ def create_app():
 
     @app.route('/login')
     def login():
-        return render_template('login.html')
+        return render_template('login.html',methods = ['GET', 'POST'])
     @app.route('/')
     def home():
         return render_template('homepage.html')
+    
+
+    @app.route('/signin')
+    def signin():
+        return render_template('signin.html')
     return app
-
-
   
 def dbconfig():
   try:

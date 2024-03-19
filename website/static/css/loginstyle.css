@@ -1,67 +1,67 @@
+
+
 body, html {
-	height: 100%;
-	background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
-	background:black;
-	position: relative;
+    height: 100%;
+    background: #0F0F0F;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 #login-box {
-	position: absolute;
-	top: 0px;
-	left: 50%;
-	transform: translateX(-50%);
-	min-width: 350px;
-	margin: 0 auto;
-	border: 1px solid black;
-	background: rgba(48, 46, 45, 1);
-	min-height: 250px;
-	padding: 20px;
-	z-index: 9999;
+    width: 350px; /* Changed min-width to width */
+    border: 1px solid black;
+    background: rgba(48, 46, 45, 1);
+    min-height: 250px;
+    padding: 20px;
+    z-index: 9999;
 }
+
 #login-box .logo .logo-caption {
-	font-family: 'Poiret One', cursive;
-	color: white;
-	text-align: center;
-	margin-bottom: 0px;
+    font-family: 'Poiret One', cursive;
+    color: white;
+    text-align: center;
+    margin-bottom: 0px;
 }
+
 #login-box .logo .tweak {
-	color: #0096c7;
+    color: #0096c7;
 }
+
 #login-box .controls {
-	padding-top: 30px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column; /* Added to align inputs vertically */
 }
+
 #login-box .controls input {
-	border-radius: 0px;
-	background: rgb(98, 96, 96);
-	border: 0px;
-	color: white;
+    border-radius: 2px; /* Changed to 2px for consistency */
+    background: rgb(98, 96, 96);
+    border: 0px;
+    color: white;
+    margin-bottom: 10px; /* Added to create space between inputs */
+    padding: 10px; /* Added padding for better appearance */
 }
+
 #login-box .controls input:focus {
-	box-shadow: none;
+    box-shadow: none;
 }
-#login-box .controls input:first-child {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-}
-#login-box .controls input:last-child {
-	border-bottom-left-radius: 2px;
-	border-bottom-right-radius: 2px;
-}
+
 #login-box button.btn-custom {
-	border-radius: 2px;
-	margin-top: 8px;
-	background:#0096c7;
-	border-color: rgba(48, 46, 45, 1);
-	color: white;
+    border-radius: 2px;
+    margin-top: 8px;
+    background: #0096c7;
+    border-color: rgba(48, 46, 45, 1);
+    color: white;
+    padding: 10px 20px; /* Added padding for better appearance */
+    cursor: pointer; /* Added to indicate clickable button */
 }
-#login-box button.btn-custom:hover{
-	-webkit-transition: all 500ms ease;
-	-moz-transition: all 500ms ease;
-	-ms-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	background: rgba(48, 46, 45, 1);
-	border-color: #b1c900;
+
+#login-box button.btn-custom:hover {
+    background: #0056b3;
 }
+
 #particles-js{
   	width: 100%;
   	height: 100%;
@@ -70,4 +70,38 @@ body, html {
   	position: fixed;
   	top: 0px;
   	z-index:1;
+}
+
+
+
+
+#loginbutton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #686868;
+            color: #EDEDED;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect */
+  #loginbutton:hover {
+            background-color: #0056b3;
+        }
+
+#signup {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#signup a {
+    color: #0096c7;
+    text-decoration: none;
+}
+
+#signup a:hover {
+    text-decoration: underline;
 }
