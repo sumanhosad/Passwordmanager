@@ -12,6 +12,7 @@ def create_app():
     @app.route('/login')
     def login():
         return render_template('login.html',methods = ['GET', 'POST'])
+
     @app.route('/')
     def home():
         return render_template('homepage.html')
@@ -21,10 +22,20 @@ def create_app():
     def signin():
         return render_template('signin.html',methods = ['GET', 'POST'])
 
+    @app.route('/addpassword')
+    def addpassword():
+        return render_template('addpassword.html')
 
-
+    @app.route('/accespassword')
+    def accespassword():
+        return render_template('accespassword.html')
+    
+    @app.route('/managepassword')
+    def managepassword():
+        return render_template('managepassword.html')
     return app
   
+ 
 def dbconfig():
   try:
     db = mysql.connector.connect(

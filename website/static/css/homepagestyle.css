@@ -1,31 +1,71 @@
 
-body, html {
-    height: 100%;
+body {
     margin: 0;
-}
-
-#particles-js {
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Behind the content */
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000; /* Background color for the entire page */
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body covers the full height of the viewport */
 }
 
 .container {
-    width: 50%; /* Adjust the width as needed */
-    margin: 0 auto; /* Center horizontally */
-    z-index: 1; /* On top of particles container */
-    position: relative;
+    max-width: 800px;
+    margin: 50px auto; /* Center the container horizontally */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px; /* Rounded corners for the container */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
 }
 
-/* Additional styling for the content inside the container */
-.container h1 {
+h1 {
     text-align: center;
+    color: #333; /* Text color for the heading */
 }
 
 .options-container {
+    margin-top: 20px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+}
+
+.option {
+    margin: 0 10px; /* Add some space between options */
+}
+
+.option a {
+    display: block;
+    padding: 10px 20px;
+    background-color: #EDEDED; /* Background color for option links */
+    color: #000000; /* Text color for option links */
+    text-decoration: none;
+    border-radius: 5px; /* Rounded corners for option links */
+    transition: background-color 0.3s ease;
+}
+
+.option a:hover {
+    background-color: #CAFDF9; /* Background color on hover */
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place the particle animation behind other content */
+}
+
+/* Style for the footer */
+.footer {
+    background-color: #333; /* Background color for the footer */
+    color: #fff; /* Text color for the footer */
+    padding: 20px;
     text-align: center;
+    margin-top: auto; /* Push the footer to the bottom */
 }
 

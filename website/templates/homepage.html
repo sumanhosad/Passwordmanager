@@ -8,28 +8,36 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/homepagestyle.css')}}">
 </head>
 <body>
-    <div id="particles-js"></div> <!-- Move particles container before the content -->
+    <!-- Move particles container before the content -->
 
     <div class="container">
         <h1>Welcome to the Password Manager</h1>
         <div class="options-container">
             <div class="options">
                 <div class="option">
-                    <a href="/add">Add Password</a>
+                  <a href="{{url_for('addpassword')}}">Add Password</a>
                 </div>
                 <div class="option">
-                    <a href="/access">Access Password</a>
+                  <a href="{{url_for('accespassword')}}">Access Password</a>
                 </div>
                 <div class="option">
-                    <a href="/manage">Manage Password</a>
+                  <a href="{{url_for('managepassword')}}">Manage Password</a>
                 </div>
             </div>
         </div>
     </div>
+    <div id="particles-js"></div>
 
+    
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="{{url_for('static',filename='javascript/prtclcbr.js')}}"></script>
+    <script src="{{url_for('static',filename='javascript/particle.js')}}"></script><!-- Footer -->
+    <footer class="footer">
+            <p>&copy; 2022 Password Manager. All rights reserved.</p>
+            <p>Contact: info@passwordmanager.com</p>
+    
+    </footer>
+
 </body>
 </html>
 
