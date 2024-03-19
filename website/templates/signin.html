@@ -13,11 +13,13 @@
     <div class="logo">
         <h1 class="logo-caption"><span class="tweak">S</span>ignin</h1>
     </div><!-- /.logo -->
-    <div class="controls">
+    <div>
+      <form action="/login" method="post"  class="controls">
         <input type="text" name="username" placeholder="Username" class="form-control">
         <input type="password" name="password" placeholder="Password" class="form-control">
         <button type="button" class="btn-custom">Signin</button>
-        <p id="prg">Already have an account? <a href="{{url_for('login')}}">Log in</a></p> <!-- Corrected link -->
+        <p class="prg" style="color:#C1C1C1">Already have an account? <a href="{{url_for('login')}}">Log in</a></p>
+      </form>
     </div>
 </div>
 

@@ -117,12 +117,12 @@ text-align: center;
 
 }
 
-#prg {
+p {
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color:#C1C1C1;
+    color: #C1C1C1;
     margin-bottom: 20px;
 }
 

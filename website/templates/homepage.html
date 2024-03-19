@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,36 +7,21 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/homepagestyle.css')}}">
 </head>
 <body>
-    <!-- Move particles container before the content -->
+   
+<div class="container">
+  <h1><span class="tweak">P</span>assword <span class="tweak">M</span>anager</h1>
+  <div class="options">
+    <button type="button" class="option">Add Password</button><br>
+    <button type="button" class="option">Access Password</button><br>
+    <button type="button" class="option">Manage Password</button><br>
+   </div>
+</div>
 
-    <div class="container">
-        <h1>Welcome to the Password Manager</h1>
-        <div class="options-container">
-            <div class="options">
-                <div class="option">
-                  <a href="{{url_for('addpassword')}}">Add Password</a>
-                </div>
-                <div class="option">
-                  <a href="{{url_for('accespassword')}}">Access Password</a>
-                </div>
-                <div class="option">
-                  <a href="{{url_for('managepassword')}}">Manage Password</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="particles-js"></div>
 
-    
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="{{url_for('static',filename='javascript/particle.js')}}"></script><!-- Footer -->
-    <footer class="footer">
-            <p>&copy; 2022 Password Manager. All rights reserved.</p>
-            <p>Contact: info@passwordmanager.com</p>
-    
-    </footer>
-
+<div id="particles-js"></div>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="{{url_for('static',filename='javascript/particle.js')}}"></script>
 </body>
 </html>
 

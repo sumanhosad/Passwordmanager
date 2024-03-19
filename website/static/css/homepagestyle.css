@@ -3,69 +3,54 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #000000; /* Background color for the entire page */
-    justify-content: center;
+    background-color: #000000; /* Background color */
     display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the body covers the full height of the viewport */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-
 .container {
-    max-width: 800px;
-    margin: 50px auto; /* Center the container horizontally */
+    max-width: 600px;
+    background: rgba(48, 46, 45, 0.7);
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    border-radius: 10px; /* Rounded corners for the container */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
-}
-
-h1 {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     text-align: center;
-    color: #333; /* Text color for the heading */
+    color: #fff; 
+}
+h1 {
+    font-size: 2.5em; /* Adjust the font size as needed */
 }
 
-.options-container {
-    margin-top: 20px;
+.tweak {
+    color: #2850EA; /* Color for the 'P' and 'M' */
 }
 
 .options {
-    display: flex;
-    justify-content: center;
+    margin-top: 20px; /* Adjust the margin as needed */
 }
 
 .option {
-    margin: 0 10px; /* Add some space between options */
+    padding: 10px 20px; /* Adjust the padding as needed */
+    background-color: #EDEDED; /* Button background color */
+    color: #000000; /* Button text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 10px; /* Adjust the margin as needed */
+    cursor: pointer;
 }
 
-.option a {
-    display: block;
-    padding: 10px 20px;
-    background-color: #EDEDED; /* Background color for option links */
-    color: #000000; /* Text color for option links */
-    text-decoration: none;
-    border-radius: 5px; /* Rounded corners for option links */
-    transition: background-color 0.3s ease;
+.option:hover {
+    background-color: rgba(59, 153, 233, 0.7);/* Button background color on hover */
 }
-
-.option a:hover {
-    background-color: #CAFDF9; /* Background color on hover */
-}
-
 #particles-js {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Place the particle animation behind other content */
+    z-index: -1;
 }
-
-/* Style for the footer */
-.footer {
-    background-color: #333; /* Background color for the footer */
-    color: #fff; /* Text color for the footer */
-    padding: 20px;
-    text-align: center;
-    margin-top: auto; /* Push the footer to the bottom */
-}
-
+.options .option {
+            margin-bottom: 30px; /* Add margin between each button */
+        }
