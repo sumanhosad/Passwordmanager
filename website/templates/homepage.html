@@ -1,46 +1,35 @@
-</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Manager - Cybersecure Theme</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/homepagestyle.css') }}">
-    </head>
+    <title>Password Manager</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/homepagestyle.css')}}">
+</head>
 <body>
-    <div class="hero">
-        <h2>Welcome to the Password Manager</h2>
-        <p>Store and manage your passwords securely.</p>
-    </div>
+    <div id="particles-js"></div> <!-- Move particles container before the content -->
 
-    <div class="features">
-      <a href="https://copilot.microsoft.com/" class="button">Go to Example Page</a>
-        <h3>Key Features</h3>
-        <div class="feature-item">
-            <div class="feature-icon">Icon</div>
-            <div class="feature-text">
-                <p>Securely store passwords</p>
-            </div>
-        </div>
-        <div class="feature-item">
-            <div class="feature-icon">Icon</div>
-            <div class="feature-text">
-                <p>Advanced encryption</p>
-            </div>
-        </div>
-        <div class="feature-item">
-            <div class="feature-icon">Icon</div>
-            <div class="feature-text">
-                <p>Biometric authentication</p>
+    <div class="container">
+        <h1>Welcome to the Password Manager</h1>
+        <div class="options-container">
+            <div class="options">
+                <div class="option">
+                    <a href="/add">Add Password</a>
+                </div>
+                <div class="option">
+                    <a href="/access">Access Password</a>
+                </div>
+                <div class="option">
+                    <a href="/manage">Manage Password</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="cta">
-        <h3>Get Started Now</h3>
-        <p>Start managing your passwords securely today.</p>
-        <button>Sign Up</button>
-    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static',filename='javascript/prtclcbr.js')}}"></script>
 </body>
 </html>
 

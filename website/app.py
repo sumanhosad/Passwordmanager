@@ -19,7 +19,10 @@ def create_app():
 
     @app.route('/signin')
     def signin():
-        return render_template('signin.html')
+        return render_template('signin.html',methods = ['GET', 'POST'])
+
+
+
     return app
   
 def dbconfig():
