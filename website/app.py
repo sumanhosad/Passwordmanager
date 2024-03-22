@@ -1,51 +1,55 @@
-from flask import Flask,render_template,url_for
-import mysql.connector
+from flask import Flask,render_template,url_for,request,redirect,session
+from flask_sqlalchemy import SQLAlchemy
 from rich.console import Console
 console = Console()
 
 
 def create_app():
     app=Flask(__name__)
-    app.config['SECRET_KEY'] = 'passwordmanager'   
-       
-
-    @app.route('/login')
+    app.config['SECRET_KEY'] = 'passwordmanager'
+    
+    @app.route('/login', methods=["POST","GET"])
     def login():
-        return render_template('login.html',methods = ['GET', 'POST'])
-
+        session.pop("user",None)
+        if request.method=="POST":
+            user=request.form["username"]
+            session["user"]=user
+            return redirect(url_for("home",usr=user))
+        else:
+            session.clear()
+            return render_template('login.html')
     @app.route('/')
     def home():
-        return render_template('homepage.html')
-    
-
-    @app.route('/signin')
+        if "user" in session:
+            user=session["user"]
+            return render_template('homepage.html')
+        else:
+            return render_template('login.html')
+    @app.route('/signin',methods=["POST","GET"])
     def signin():
-        return render_template('signin.html',methods = ['GET', 'POST'])
+        if request.method=="POST":
+            user=request.form["username"]
+            session["user"]=user
+            return redirect(url_for("home",usr=user))
+        else:
+            return render_template('signin.html',methods = ['GET', 'POST'])
 
     @app.route('/addpassword')
     def addpassword():
         return render_template('addpassword.html')
 
-    @app.route('/accespassword')
-    def accespassword():
-        return render_template('accespassword.html')
+    @app.route('/accesspassword')
+    def accesspassword():
+        return render_template('accesspassword.html')
     
     @app.route('/managepassword')
     def managepassword():
         return render_template('managepassword.html')
-    return app
   
- 
-def dbconfig():
-  try:
-    db = mysql.connector.connect(
-      host ="localhost",
-      user ="root",
-      passwd ="password"
-    )
-    print("Connected to db")
-  except Exception as e:
-    print("An error occurred while trying to connect to the database")
-    console.print_exception(show_locals=True)
+    return app
 
-  return db
+def create_databse(app):
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+    db = SQLAlchemy(app)
+
+
