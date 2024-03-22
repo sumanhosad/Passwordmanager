@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/homepagestyle.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <style>
+        .options .option {
+            margin-bottom: 10px; /* Add margin between each button */
+        }
+    </style>
 </head>
 <body>
    
-<div class="container">
-  <h1><span class="tweak">P</span>assword <span class="tweak">M</span>anager</h1>
-  <div class="options">
-    <button type="button" class="option">Add Password</button><br>
-    <button type="button" class="option">Access Password</button><br>
-    <button type="button" class="option">Manage Password</button><br>
+<div id="container">
+  <div class="heading">
+  <h1 class="caption"><span class="tweak">P</span>assword <span class="tweak">M</span>anager</h1>
+  </div>  <div class="controls">
+    <button type="button" class="btn-custom">Add Password</button><br>
+    <button type="button" class="btn-custom">Access Password</button><br>
+    <button type="button" class="btn-custom">Manage Password</button><br>
    </div>
 </div>
 
@@ -24,4 +30,3 @@
 <script src="{{url_for('static',filename='javascript/particle.js')}}"></script>
 </body>
 </html>
-
