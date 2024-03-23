@@ -37,6 +37,7 @@ def create_app():
         session.pop("user", None)
         if request.method == "POST":
             user = request.form["username"]
+            master_password=request.form["password"]
             session["user"] = user
             return redirect(url_for("home", usr=user))
         else:
