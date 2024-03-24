@@ -1,12 +1,5 @@
 from flask import Flask
 from website.app import create_app
-from getpass import getpass
-import hashlib
-import random
-import string
-import mysql.connector
-import sys
-from rich.console import Console
 
 
 app=create_app()
