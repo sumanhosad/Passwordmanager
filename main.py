@@ -1,5 +1,7 @@
 from flask import Flask
 from website.app import create_app
+import sys
+from rich.console import Console
 
 
 app=create_app()

@@ -59,13 +59,10 @@ def create_app():
             mp=request.form["password"]
             hashed_mp = hash_password(mp)
             
-            # Check if user already exists
             existing_user = User.query.filter_by(username=user).first()
             if existing_user:
-                # User already exists, redirect to login
                 return redirect(url_for('login'))
             
-            # User does not exist, add new user
             session["user"] = user
             useradd(user, hashed_mp)
             return redirect(url_for("home", usr=user))
