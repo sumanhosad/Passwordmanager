@@ -10,6 +10,7 @@ text-align: center;
 }
 
 #container {
+    display:flex: 1 1 auto;
     width: 350px;
     border: 1px solid black;
     background: rgba(48, 46, 45, 0.7); /* Updated opacity to 40 percent */

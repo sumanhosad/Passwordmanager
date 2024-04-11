@@ -14,6 +14,11 @@
         <h1 class="caption"><span class="tweak">L</span>ogin</h1>
     </div>
     <div >
+      {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
       <form action="/login" method="post"  class="controls">
         <input type="text" name="username" placeholder="Username" class="form-control" required><br>
         <input type="password" name="password" placeholder="Password" class="form-control" required><br>

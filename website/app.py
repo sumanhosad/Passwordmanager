@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
+from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
@@ -33,6 +34,13 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+    @app.before_request 
+    def update_last_activity_time():
+        if 'user' in session:
+            session.permanent = True 
+            app.permanent_session_lifetime = timedelta(minutes=5) 
+            session['last_activity_time'] = datetime.now()
+
 
     @app.route('/login', methods=["POST","GET"])
     def login():
@@ -41,6 +49,8 @@ def create_app():
             user = request.form["username"]
             master_password = request.form["password"]
             existing_user = User.query.filter_by(username=user).first()
+            if existing_user==None:
+                return render_template('login.html', message="Username doesn't exists.")   
             if existing_user and existing_user.master_password == hash_password(master_password):
                 session["user"] = user
                 return redirect(url_for("home", usr=user))
@@ -67,7 +77,7 @@ def create_app():
             
             existing_user = User.query.filter_by(username=user).first()
             if existing_user:
-                return redirect(url_for('login'))
+                return render_template('signin.html', message="Username already exists. Please choose a different username.")            
             
             session["user"] = user
             useradd(user, hashed_mp)
