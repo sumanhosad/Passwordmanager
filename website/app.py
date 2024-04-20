@@ -1,31 +1,34 @@
-
+import random
+import string
+from sqlalchemy import String
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from datetime import datetime, timedelta
-
+from website.database import generate_key, encrypt_message, decrypt_message
 db = SQLAlchemy()
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
+    username = db.Column(db.String(50), primary_key=True)
     master_password = db.Column(db.String(100), nullable=False)
 
-def create_passwords_table(username):
-    class_name = f'{username.capitalize()}Password'
-    return type(class_name, (db.Model,), {
-        '__tablename__': f'{username}_passwords',
-        'id': db.Column(db.Integer, primary_key=True),
-        'urlname': db.Column(db.String(100), nullable=False),
-        'url': db.Column(db.String(200), nullable=False),
-        'username': db.Column(db.String(50), nullable=False),
-        'password': db.Column(db.String(100), nullable=False),
-        'user_id': db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False),
-        'user': db.relationship(User)
-    })
+    @classmethod
+    def add_column(cls, column_name, column_type=String(50), nullable=False):
+        """
+        Add a new column to the User table dynamically.
+        """
+        # Check if the column already exists
+        if column_name in cls.__table__.columns:
+            print(f"Column '{column_name}' already exists.")
+            return
+
+        # Add the new column to the User table
+        new_column = Column(column_name, column_type, nullable=nullable)
+        new_column_name = cls.__tablename__ + '_' + column_name  # Generate unique column name
+        new_column.name = new_column_name
+        cls.__table__.append_column(new_column)
+
 def create_app():
-
-
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'passwordmanager'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///passwordmanager.db'
@@ -33,13 +36,6 @@ def create_app():
     db.init_app(app)
     with app.app_context():
         db.create_all()
-
-    @app.before_request 
-    def update_last_activity_time():
-        if 'user' in session:
-            session.permanent = True 
-            app.permanent_session_lifetime = timedelta(minutes=5) 
-            session['last_activity_time'] = datetime.now()
 
 
     @app.route('/login', methods=["POST","GET"])
@@ -53,6 +49,7 @@ def create_app():
                 return render_template('login.html', message="Username doesn't exists.")   
             if existing_user and existing_user.master_password == hash_password(master_password):
                 session["user"] = user
+                session["mp"]=hash_password(master_password)
                 return redirect(url_for("home", usr=user))
             else:
                 return redirect(url_for("login"))
@@ -81,7 +78,6 @@ def create_app():
             
             session["user"] = user
             useradd(user, hashed_mp)
-            create_passwords_table(user)
             db.create_all()
             return redirect(url_for("home", usr=user))
         else:
@@ -93,8 +89,23 @@ def create_app():
 
     @app.route('/addpassword')
     def addpassword():
-        return render_template('addpassword.html')
+        if request.method == 'POST':
+            # Get form inputs and store them in a listwebsite_details
+            website_details = [
+                request.form['website'],
+                request.form['url'],
+                request.form['email'],
+                request.form['username'],
+                request.form['password']
+            ]
+            # Encrypt the website detailsencrypted_message
+            encrypted_message = encrypt_message(website_details, mp)
+            User.add_column(website_details[0])
+        else:
+            return render_template('addpassword.html')
 
+        
+ 
     @app.route('/accesspassword')
     def accesspassword():
         return render_template('accesspassword.html')
@@ -110,7 +121,12 @@ def useradd(username, master_password):
     db.session.add(new_user)
     db.session.commit()
 
+def adduserpasswordtable(website, url, email, usernames, password):
+    print()
+
 def hash_password(mp):
     hashed_mp = hashlib.sha256(mp.encode()).hexdigest()
     return hashed_mp
 
+def generatePassword(length):
+	return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation ) for n in range(length)])
