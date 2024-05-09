@@ -11,7 +11,7 @@ text-align: center;
 
 #container {
     display:flex: 1 1 auto;
-    width: 350px;
+    width: 500px;
     border: 1px solid black;
     background: rgba(48, 46, 45, 0.7); /* Updated opacity to 40 percent */
     min-height: 250px;
@@ -35,7 +35,10 @@ text-align: center;
     display: flex;
     flex-direction: column;
 }
-
+#container .controls #togglePassword{
+margin-left: -30px; 
+cursor: pointer;
+}
 #container .controls input {
     border-radius: 2px;
     background: rgb(98, 96, 96);
@@ -44,7 +47,6 @@ text-align: center;
     margin-bottom: 10px;
     padding: 10px;
 }
-
 #container .controls input:focus {
     box-shadow: none;
 }
@@ -92,4 +94,16 @@ text-decoration: none;
   display: none;
 }
 
+/* style.css */
+#container .controls i{
+  z-index:4;
+}
+#container .controls input[type="password"] + i {
+    position: absolute;
+    right: 10px; /* Adjust according to desired icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+position: relative;
+}
 
