@@ -1,7 +1,7 @@
 function generatePassword(length = 15) {
   const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const numbers = '0123456789';
-  const symbols = '!@#$%^&*()-_=+[]{}|;:.<>?';
+  const symbols = '!@#$%^&*()-_=+[]{};:.<>?';
 
   const allCharacters = letters + numbers + symbols;
 

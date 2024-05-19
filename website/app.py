@@ -11,10 +11,6 @@ from website.encryption import generate_key, encrypt_message, decrypt_message
 
 db = SQLAlchemy()
 
-# Define global variables
-mp = None
-user = None
-
 
 class User(db.Model):
     username = db.Column(db.String(50), primary_key=True)
@@ -44,7 +40,7 @@ def create_app():
                 session["user"] = user
                 session["mp"]=hash_password(master_password)
                 mp=session['mp']
-                return redirect(url_for("home", usr=user))
+                return redirect(url_for("home"))
             else:
                 return render_template('login.html', message="Password Doesnt MAtch!!")   
 
@@ -79,13 +75,12 @@ def create_app():
         else:
             return render_template('signin.html')
 
-    @app.route('/<usr>')
-    def usr(usr):
-        return redirect(url_for('home', usr=usr))
-
     
     @app.route('/addpassword', methods=['GET', 'POST'])
     def addpassword():
+        if(session["user"]==None):
+            return redirect(url_for("login"))
+        user=session.get('user')
         if request.method == 'POST':
         # Extract form inputs
             website_details = [
@@ -105,14 +100,19 @@ def create_app():
             encrypted_message = encrypt_message(website_details, mp)
 
             # Update user record with encrypted details
-            user = User.query.filter_by(username=session.get("user")).first()
-            if user is None:
+            userdata = User.query.filter_by(username=session.get("user")).first()
+            user=userdata.username
+            if userdata is None:
                 # Handle case where user record does not exist
                 return "Error: User not found."
-
-            user.add_encrypted_detail(website_details[0], encrypted_message)
-            db.session.commit()
-
+            existpassword=retrieve_passwords(user)
+            if existpassword==None:
+                replace_passwords(user,encrypted_message)
+                db.session.commit()
+            else:
+                passwords='||'.join([existpassword , encrypted_message])
+                replace_passwords(user,passwords)
+                db.session.commit()
             # Redirect to the same page to clear form data
             return redirect(url_for("addpassword"))
         else:
@@ -126,7 +126,7 @@ def create_app():
             return redirect(url_for('login'))
 
         username = session["user"]
-        encrypted_details = User.get_encrypted_details(username)
+        encrypted_details = retrieve_passwords(username)
     
         if encrypted_details is None:
                 return redirect(url_for('login'))
@@ -141,28 +141,10 @@ def create_app():
             return "Error decrypting password details. Please try again later."
 
         return render_template('accesspassword.html', message=decrypted_details)
-        @app.route('/managepassword')
-        def managepassword():
-            return render_template('managepassword.html')
-
-    @app.route('/retrieve_passwords/<username>')
-    def retrieve_passwords(username):
-        user = User.query.filter_by(username=username).first()
-        if user:
-            return user.passwords
-        else:
-            return "User not found."
-
-    @app.route('/replace_passwords/<username>', methods=['POST'])
-    def replace_passwords(username):
-        new_passwords = request.form['passwords']
-        user = User.query.filter_by(username=username).first()
-        if user:
-            user.passwords = new_passwords
-            db.session.commit()
-            return "Passwords replaced successfully."
-        else:
-            return "User not found."
+    @app.route('/managepassword')
+    def managepassword():
+        return render_template('managepassword.html')
+        
     return app
 
 def useradd(username, master_password):
