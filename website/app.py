@@ -105,7 +105,7 @@ def create_app():
                 return "Error: User not found."
             existpassword=retrieve_passwords(user)
             if existpassword==None:
-                decrypt_message(website_details,session['mp'])
+                encrypted_message=encrypt_message(website_details,session['mp'])
                 replace_passwords(user,encrypted_message)
                 db.session.commit()
             else:
@@ -127,21 +127,14 @@ def create_app():
             return redirect(url_for('login'))
 
         username = session["user"]
-        encrypted_details = retrieve_passwords(username)
-    
-        if encrypted_details is None:
-            return redirect(url_for('login'))
+        encrypted_passwords=retrieve_passwords(username)
+        decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
+        passwords=split_into_sublists(decrypted_passwords)
 
-        decrypted_details = {}
-        try:
-            for column, encrypted_message in encrypted_details.items():
-                decrypted_message = decrypt_message(encrypted_message, session["mp"])
-                decrypted_details[column] = decrypted_message
-        except Exception as e:
-            app.logger.error("Error decrypting password details for user: %s (%s)", username, str(e))
-            return "Error decrypting password details. Please try again later."
-
-        return render_template('accesspassword.html', message=decrypted_details)
+        if passwords==None:
+            return "some error"
+        
+        return render_template('accesspassword.html', message=passwords)
     @app.route('/managepassword')
     def managepassword():
         return render_template('managepassword.html')

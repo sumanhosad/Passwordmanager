@@ -35,5 +35,5 @@ def decrypt_message(encrypted_message, mp):
 def concatenate_sublists(sublists):
     return [item for sublist in sublists for item in sublist]
 
-def split_into_sublists(main_list, sublist_size):
+def split_into_sublists(main_list, sublist_size=5):
     return [main_list[i:i + sublist_size] for i in range(0, len(main_list), sublist_size)]
