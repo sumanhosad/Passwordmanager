@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from datetime import datetime, timedelta
-from website.encryption import generate_key, encrypt_message, decrypt_message
+from website.encryption import generate_key, encrypt_message, decrypt_message, concatenate_sublists, split_into_sublists
 
 db = SQLAlchemy()
 
@@ -97,8 +97,6 @@ def create_app():
                 # Handle case where master password is not in session
                 return "Error: Master password not found in session."
 
-            encrypted_message = encrypt_message(website_details, mp)
-
             # Update user record with encrypted details
             userdata = User.query.filter_by(username=session.get("user")).first()
             user=userdata.username
@@ -107,11 +105,14 @@ def create_app():
                 return "Error: User not found."
             existpassword=retrieve_passwords(user)
             if existpassword==None:
+                decrypt_message(website_details,session['mp'])
                 replace_passwords(user,encrypted_message)
                 db.session.commit()
             else:
-                passwords='||'.join([existpassword , encrypted_message])
-                replace_passwords(user,passwords)
+                existdecrypass=decrypt_message(existpassword,session["mp"])
+                existdecrypass+=website_details
+                encrypted_messages=encrypt_message(existdecrypass,session['mp'])
+                replace_passwords(user,encrypt_messages)
                 db.session.commit()
             # Redirect to the same page to clear form data
             return redirect(url_for("addpassword"))
@@ -129,7 +130,7 @@ def create_app():
         encrypted_details = retrieve_passwords(username)
     
         if encrypted_details is None:
-                return redirect(url_for('login'))
+            return redirect(url_for('login'))
 
         decrypted_details = {}
         try:
