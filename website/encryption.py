@@ -18,7 +18,7 @@ def encrypt_message(website_details, mp):
     key = generate_key(mp)
     cipher_suite = Fernet(key)
 
-    plaintext = ',,'.join(website_details)+',,'
+    plaintext = ','.join(website_details)
     
     encrypted_message = cipher_suite.encrypt(plaintext.encode())
     return encrypted_message
@@ -29,7 +29,7 @@ def decrypt_message(encrypted_message, mp):
 
     decrypted_message = cipher_suite.decrypt(encrypted_message).decode()
 
-    website_details = decrypted_message.split(',,')
+    website_details = decrypted_message.split(',')
     return website_details
 
 def concatenate_sublists(sublists):

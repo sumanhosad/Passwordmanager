@@ -1,29 +1,50 @@
+html{
+  height:100%;
+}
 
-body, html {
+body{
     height: 100%;
     background: #000000;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-text-align: center;
+    text-align: center;
 }
 
 #container {
-    display:flex: 1 1 auto;
-    width: 500px;
+    width: 80%; /* Set the width to 80% of the viewport width */
+    height: 70%; /* Set the height to 70% of the viewport height */
     border: 1px solid black;
-    background: rgba(48, 46, 45, 0.7); /* Updated opacity to 40 percent */
+    background: rgba(48, 46, 45, 0.7); /* 70% opacity */
     min-height: 250px;
     padding: 20px;
     z-index: 9999;
-}
-
-#container .heading .caption {
-    font-family: 'Poiret One', cursive;
-    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin-bottom: 0px;
+    flex-direction: column;
+    margin: auto; position: relative;}
+.backbutton {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  padding: 10px 20px;
+  background-color: #E3F2FD;
+  border: 1px solid rgba(48, 46, 45, 1);
+  color: black;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: none;
+}
+#container .heading .caption {
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #container .heading .tweak {
@@ -31,22 +52,41 @@ text-align: center;
 }
 
 #container .controls {
-    padding-top: 30px;
-    display: flex;
+    width: 100%; /* Set to 100% to ensure proper centering */
+    font-size: 200%;
+    display: flex; /* Added for flexbox properties to take effect */
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ 
 }
-#container .controls #togglePassword{
-margin-left: -30px; 
-cursor: pointer;
+
+#container .controls #togglePassword {
+    margin-left: -30px; 
+    cursor: pointer;
 }
+
+#container .controls a {
+    width: 75%;
+}
+
 #container .controls input {
     border-radius: 2px;
     background: rgb(98, 96, 96);
-    border: 0px;
+    padding:50px;
     color: white;
-    margin-bottom: 10px;
+    font-size:20px;
+    margin-bottom: 20px;
     padding: 10px;
+    width: 300%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex; /* Added for flexbox properties to take effect */
+    flex-direction: column;
 }
+
 #container .controls input:focus {
     box-shadow: none;
 }
@@ -54,31 +94,34 @@ cursor: pointer;
 #container .btn-custom {
     border-radius: 2px;
     margin-top: 8px;
-    background:#E3F2FD;
+    width: 300%;
+    background: #E3F2FD;
     border-color: rgba(48, 46, 45, 1);
-    color:black;
-    padding: 10px 20px;
+    color: black;
+    padding: 10px 40px;
     cursor: pointer;
-font-family: 'Nunito', sans-serif;
-font-weight: bold;
-font-style: italic;
-text-decoration: none; 
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size:20px;
+    text-decoration: none; 
     display: inline-block; 
-
 }
 
 #container .btn-custom:hover {
-    background-color:#90CAF9;
-  }
-#particles-js{
+    background-color: #90CAF9;
+}
+
+#particles-js {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: 50% 50%;
     position: fixed;
     top: 0px;
-    z-index:1;
+    z-index: 1;
 }
+
 
 
 #container .prg{

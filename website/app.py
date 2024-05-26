@@ -110,9 +110,9 @@ def create_app():
                 db.session.commit()
             else:
                 existdecrypass=decrypt_message(existpassword,session["mp"])
-                existdecrypass+=website_details
+                existdecrypass= existdecrypass + website_details
                 encrypted_messages=encrypt_message(existdecrypass,session['mp'])
-                replace_passwords(user,encrypt_messages)
+                replace_passwords(user,encrypted_messages)
                 db.session.commit()
             # Redirect to the same page to clear form data
             return redirect(url_for("addpassword"))
@@ -137,7 +137,17 @@ def create_app():
         return render_template('accesspassword.html', message=passwords)
     @app.route('/managepassword')
     def managepassword():
-        return render_template('managepassword.html')
+        if "user" not in session:
+            return redirect(url_for('login'))
+
+        username = session["user"]
+        encrypted_passwords=retrieve_passwords(username)
+        decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
+        passwords=split_into_sublists(decrypted_passwords)
+
+        if passwords==None:
+            return "some error"
+        return render_template('managepassword.html', message=passwords)
         
     return app
 
@@ -167,3 +177,4 @@ def replace_passwords(username, new_passwords):
         return True
     else:
         return False
+
