@@ -131,11 +131,17 @@ body{
     justify-content: flex-start;
     align-items: center;
 }
-
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width:100%;
+}
 .accordion {
-    width: 100%;
+    width: 90%;
     padding: 15px;
-    text-align: left;
+    text-align: center;
     background-color: #84DFFF; 
     color: white;
     border: none;
@@ -157,12 +163,11 @@ body{
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    width: 100%;
+    width: 85%;
     text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    overflow-y: auto;
+    align-items:flex-start;
 
 }
 
@@ -197,7 +202,28 @@ body{
 .copy-btn:hover {
     background-color: #005f8a;
 }
+.edit-btn {
+   border-radius: 2px;
+    margin-top: 8px;
+    margin-bottom:10px;
+    width: 100%;
+    background: #E3F2FD;
+    border-color: rgba(48, 46, 45, 1);
+    color: black;
+    padding: 10px 40px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size:20px;
+    text-decoration: none; 
+    display: inline-block; 
+    text-align:center;
+}
 
+.edit-btn:hover {
+    background-color: #C7FFD8; /* Darker shade for hover effect */
+}
 #container .btn-primary {
     margin-top: 20px;
 }#particles-js {

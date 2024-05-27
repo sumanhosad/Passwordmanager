@@ -141,24 +141,39 @@ def create_app():
             return redirect(url_for('login'))
 
         username = session["user"]
+        if retrieve_passwords(username)==False:
+            return render_template('managepassword.html', error="No Password added")
+        else: 
+            encrypted_passwords=retrieve_passwords(username)
+            decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
+            passwords=split_into_sublists(decrypted_passwords)
+
+            return render_template('managepassword.html', message=passwords)
+        
+    @app.route('/editpassword/<int:sublist_index>', methods=['GET', 'POST'])    
+    def editpassword(sublist_index):
+        if "user" not in session:
+            return redirect(url_for('login'))
+
+        username = session["user"]
+
         encrypted_passwords=retrieve_passwords(username)
         decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
         passwords=split_into_sublists(decrypted_passwords)
-
-        if passwords==None:
-            return "some error"
-        return render_template('managepassword.html', message=passwords)
-        
-    @app.route('/edit/<int:sublist_index>', methods=['GET', 'POST'])
-    def edit_sublist(sublist_index):
+        elements=passwords[sublist_index]
         if request.method == 'POST':
-            # Handle the form submission to update the sublist
-            new_items = request.form.getlist('items')
-            message[sublist_index] = [message[sublist_index][0]] + new_items
-            return redirect(url_for('index'))
-    
-        sublist = message[sublist_index]
-        return render_template('edit.html', sublist=sublist, sublist_index=sublist_index)
+            passwords[sublist_index][0]=request.form['website']
+            passwords[sublist_index][1]=request.form['url']
+            passwords[sublist_index][2]=request.form['email']
+            passwords[sublist_index][3]=request.form['username']
+            passwords[sublist_index][4]=request.form['password']
+            encrypted_messages=encrypt_message(concatenate_sublists(passwords),session['mp'])
+            replace_passwords(username,encrypted_messages)
+            db.session.commit()
+            return render_template('managepassword.html', error="Password Edited Succesfully!!", message=passwords)
+
+
+        return render_template('editpassword.html', message=elements, sublist_index=sublist_index )
     return app
 
 def useradd(username, master_password):
