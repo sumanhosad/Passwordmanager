@@ -127,14 +127,14 @@ def create_app():
             return redirect(url_for('login'))
 
         username = session["user"]
-        encrypted_passwords=retrieve_passwords(username)
-        decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
-        passwords=split_into_sublists(decrypted_passwords)
+        if retrieve_passwords(username)==False:
+            return render_template('accesspassword.html', error="No Password added")
+        else: 
+            encrypted_passwords=retrieve_passwords(username)
+            decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
+            passwords=split_into_sublists(decrypted_passwords)
 
-        if passwords==None:
-            return "some error"
-        
-        return render_template('accesspassword.html', message=passwords)
+            return render_template('accesspassword.html', message=passwords)
     @app.route('/managepassword')
     def managepassword():
         if "user" not in session:
@@ -149,6 +149,16 @@ def create_app():
             return "some error"
         return render_template('managepassword.html', message=passwords)
         
+    @app.route('/edit/<int:sublist_index>', methods=['GET', 'POST'])
+    def edit_sublist(sublist_index):
+        if request.method == 'POST':
+            # Handle the form submission to update the sublist
+            new_items = request.form.getlist('items')
+            message[sublist_index] = [message[sublist_index][0]] + new_items
+            return redirect(url_for('index'))
+    
+        sublist = message[sublist_index]
+        return render_template('edit.html', sublist=sublist, sublist_index=sublist_index)
     return app
 
 def useradd(username, master_password):
@@ -163,7 +173,10 @@ def hash_password(mp):
 def retrieve_passwords(username):
     user = User.query.filter_by(username=username).first()
     if user:
-        return user.passwords
+        if user.passwords==None:
+            return False        
+        else:
+            return user.passwords
     else:
         return None
 

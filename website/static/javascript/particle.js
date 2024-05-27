@@ -118,29 +118,9 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
     );
 
 });
-
 function goBack() {
             window.history.back();
         }
-
-// Get all buttons with class "accordion"
-    var accordions = document.querySelectorAll('.accordion');
-
-    // Loop through each button and add a click event listener
-    accordions.forEach(function(accordion) {
-        accordion.addEventListener('click', function() {
-            // Toggle the class "active" to highlight the button
-            this.classList.toggle('active');
-
-            // Toggle the next sibling element (which is the panel)
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-    });
 
     // Get all buttons with class "copy-btn"
     var copyButtons = document.querySelectorAll('.copy-btn');
@@ -159,7 +139,35 @@ function goBack() {
         });
     });
 
-    function goBack() {
-        window.history.back();
-    }
+
+// Get all buttons with class "accordion"
+var accordions = document.querySelectorAll('.accordion');
+
+// Loop through each button and add a click event listener
+accordions.forEach(function(accordion) {
+    accordion.addEventListener('click', function() {
+        // Close all other open panels
+        accordions.forEach(function(otherAccordion) {
+            if (otherAccordion !== accordion) {
+                otherAccordion.classList.remove('active');
+                var otherPanel = otherAccordion.nextElementSibling;
+                otherPanel.style.maxHeight = null;
+                otherPanel.classList.remove("show");
+            }
+        });
+
+        // Toggle the class "active" to highlight the button
+        this.classList.toggle('active');
+
+        // Toggle the next sibling element (which is the panel)
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove("show");
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+            panel.classList.add("show");
+        }
+    });
+});
 
