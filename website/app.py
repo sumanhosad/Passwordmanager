@@ -139,7 +139,6 @@ def create_app():
     def managepassword():
         if "user" not in session:
             return redirect(url_for('login'))
-        success_message = request.args.get("success")
         username = session["user"]
         if retrieve_passwords(username)==False:
             return render_template('managepassword.html', error="No Password added")
@@ -148,7 +147,7 @@ def create_app():
             decrypted_passwords=decrypt_message(encrypted_passwords,session['mp'])
             passwords=split_into_sublists(decrypted_passwords)
 
-            return render_template('managepassword.html', message=passwords, success=success_message)
+            return render_template('managepassword.html', message=passwords)
         
     @app.route('/editpassword/<int:sublist_index>', methods=['GET', 'POST'])    
     def editpassword(sublist_index):
@@ -170,7 +169,7 @@ def create_app():
             encrypted_messages=encrypt_message(concatenate_sublists(passwords),session['mp'])
             replace_passwords(username,encrypted_messages)
             db.session.commit()
-            return redirect(url_for("managepassword", success="Password Edited Succesfully!!"))
+            return render_template('editpassword.html', message=elements, sublist_index=sublist_index, success="Passwordss edited Succesfully" )
 
 
         return render_template('editpassword.html', message=elements, sublist_index=sublist_index )
