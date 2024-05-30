@@ -171,3 +171,44 @@ accordions.forEach(function(accordion) {
     });
 });
 
+$(document).ready(function() {
+        $('#search-query').on('input', function() {
+            let query = $(this).val().toLowerCase();
+            let found = false;
+            $('.accordion').each(function() {
+                let text = $(this).text().toLowerCase();
+                let panel = $(this).next('.panel');
+                let matches = false;
+
+                // Check if the accordion button or any of its panel items match the query
+                if (text.includes(query)) {
+                    matches = true;
+                } else {
+                    panel.find('.password-item input').each(function() {
+                        if ($(this).val().toLowerCase().includes(query)) {
+                            matches = true;
+                        }
+                    });
+                }
+
+                if (matches) {
+                    $(this).show();
+                    panel.show();
+                    found = true;
+                } else {
+                    $(this).hide();
+                    panel.hide();
+                }
+            });
+
+            // Show or hide the "no results" message
+            if (!found) {
+                $('#password-list').hide();
+                $('#no-results').show();
+            } else {
+                $('#password-list').show();
+                $('#no-results').hide();
+            }
+        });
+    });
+

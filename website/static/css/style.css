@@ -67,7 +67,31 @@ body{
    
  
 }
+.form-group{
+align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin: auto; 
+ display: flex;
+    justify-content: center;
 
+}
+#search-query{
+border-radius: 2px;
+    background: rgb(98, 96, 96);
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300%;
+    height: 120%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+}
 #container .controls #togglePassword {
     margin-left: -30px; 
     cursor: pointer;
@@ -207,7 +231,7 @@ body{
     margin-top: 8px;
     margin-bottom:10px;
     width: 100%;
-    background: #E3F2FD;
+    background: #6EDE8A;
     border-color: rgba(48, 46, 45, 1);
     color: black;
     padding: 10px 40px;
@@ -222,7 +246,7 @@ body{
 }
 
 .edit-btn:hover {
-    background-color: #C7FFD8; /* Darker shade for hover effect */
+    background-color: #2DC653; /* Darker shade for hover effect */
 }
 #container .btn-primary {
     margin-top: 20px;
