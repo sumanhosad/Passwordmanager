@@ -1,40 +1,94 @@
-var passwords = [
-        {website: "Website 1", url: "www.website1.com", username: "user1", password: "password1"},
-        {website: "Website 2", url: "www.website2.com", username: "user2", password: "password2"},
-        {website: "Website 3", url: "www.website3.com", username: "user3", password: "password3"}
-    ];
+function goBack() {
+            window.history.back();
+        }
 
-    var container = document.getElementById("dynamic-panels");
+    // Get all buttons with class "copy-btn"
+    var copyButtons = document.querySelectorAll('.copy-btn');
 
-    // Create panels dynamically
-    passwords.forEach(function(passwordData) {
-        var button = document.createElement("button");
-        button.className = "accordion";
-        button.textContent = passwordData.website;
+    // Loop through each button and add a click event listener
+    copyButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Get the input field next to the clicked button
+            var inputField = this.previousElementSibling;
 
-        var panel = document.createElement("div");
-        panel.className = "panel";
-        panel.innerHTML = `
-            <p>URL: <a href="#">${passwordData.url}</a></p>
-            <p>Username: ${passwordData.username}</p>
-            <p>Password: ${passwordData.password}</p>
-        `;
+            // Select the text in the input field
+            inputField.select();
 
-        container.appendChild(button);
-        container.appendChild(panel);
+            // Copy the selected text to the clipboard
+            document.execCommand('copy');
+        });
     });
 
-    // Add event listeners to toggle panel visibility
-    var acc = document.getElementsByClassName("accordion");
-    for (var i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
+
+// Get all buttons with class "accordion"
+var accordions = document.querySelectorAll('.accordion');
+
+// Loop through each button and add a click event listener
+accordions.forEach(function(accordion) {
+    accordion.addEventListener('click', function() {
+        // Close all other open panels
+        accordions.forEach(function(otherAccordion) {
+            if (otherAccordion !== accordion) {
+                otherAccordion.classList.remove('active');
+                var otherPanel = otherAccordion.nextElementSibling;
+                otherPanel.style.maxHeight = null;
+                otherPanel.classList.remove("show");
             }
         });
-    }
+
+        // Toggle the class "active" to highlight the button
+        this.classList.toggle('active');
+
+        // Toggle the next sibling element (which is the panel)
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove("show");
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+            panel.classList.add("show");
+        }
+    });
+});
+
+$(document).ready(function() {
+        $('#search-query').on('input', function() {
+            let query = $(this).val().toLowerCase();
+            let found = false;
+            $('.accordion').each(function() {
+                let text = $(this).text().toLowerCase();
+                let panel = $(this).next('.panel');
+                let matches = false;
+
+                // Check if the accordion button or any of its panel items match the query
+                if (text.includes(query)) {
+                    matches = true;
+                } else {
+                    panel.find('.password-item input').each(function() {
+                        if ($(this).val().toLowerCase().includes(query)) {
+                            matches = true;
+                        }
+                    });
+                }
+
+                if (matches) {
+                    $(this).show();
+                    panel.show();
+                    found = true;
+                } else {
+                    $(this).hide();
+                    panel.hide();
+                }
+            });
+
+            // Show or hide the "no results" message
+            if (!found) {
+                $('#password-list').hide();
+                $('#no-results').show();
+            } else {
+                $('#password-list').show();
+                $('#no-results').hide();
+            }
+        });
+    });
 

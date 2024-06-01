@@ -67,9 +67,9 @@ def create_app():
                 return render_template('signin.html', message="Username already exists. Please choose a different username.")            
             
             session["user"] = user
-            session["mp"] = hashed_mp
-            mp= session['mp']
-            useradd(user, hashed_mp)
+            session["mp"]=hash_password(mp)
+            mp=session['mp']
+            useradd(user, mp)
             db.create_all()
             return redirect(url_for("home", usr=user))
         else:
@@ -104,7 +104,7 @@ def create_app():
                 # Handle case where user record does not exist
                 return "Error: User not found."
             existpassword=retrieve_passwords(user)
-            if existpassword==None:
+            if existpassword==False:
                 encrypted_message=encrypt_message(website_details,session['mp'])
                 replace_passwords(user,encrypted_message)
                 db.session.commit()
@@ -135,6 +135,7 @@ def create_app():
             passwords=split_into_sublists(decrypted_passwords)
 
             return render_template('accesspassword.html', message=passwords)
+
     @app.route('/managepassword')
     def managepassword():
         if "user" not in session:
@@ -173,6 +174,31 @@ def create_app():
 
 
         return render_template('editpassword.html', message=elements, sublist_index=sublist_index )
+
+    @app.route('/deletepassword/<int:sublist_index>', methods=['POST'])
+    def deletepassword(sublist_index):
+        if "user" not in session:
+            return redirect(url_for('login'))
+
+        username = session["user"]
+
+        if retrieve_passwords(username)==False:
+            return render_template('managepassword.html', error="No Password added")
+        encrypted_passwords=retrieve_passwords(username)
+        decrypted_passwords = decrypt_message(encrypted_passwords, session['mp'])
+        passwords = split_into_sublists(decrypted_passwords)
+        if len(passwords)==1:
+            replace_passwords(username,None)
+            db.session.commit()
+            return render_template('managepassword.html', error="no Password Added")
+        else:
+            del passwords[sublist_index]
+            encrypted_messages = encrypt_message(concatenate_sublists(passwords), session['mp'])
+            replace_passwords(username, encrypted_messages)
+            db.session.commit()
+            return render_template('managepassword.html', success='Password deleted successfully', message=passwords)
+                    
+
     return app
 
 def useradd(username, master_password):
